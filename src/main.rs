@@ -67,6 +67,14 @@ fn main() {
         .label("SMA 15")
         .legend(|(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], &BLUE));
 
+    chart
+        .configure_series_labels()
+        .position(SeriesLabelPosition::UpperMiddle)
+        .label_font(("sans-serif", 30.0).into_font())
+        .background_style(WHITE.filled())
+        .draw()
+        .unwrap();
+
     root.present().expect(&format!("Unable to write result to file please make sure directory '{}' exists under the current dir", &dir));
 
     println!("Plot has been saved to {}", &filepath);
