@@ -67,6 +67,22 @@ fn main() {
         .label("SMA 15")
         .legend(|(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], &BLUE));
 
+    let sma_data = simple_moving_average(&close_price_data, 30).expect("Calculating SMA failed");
+
+    let mut line_data: Vec<(Date<Local>, f32)> = Vec::new();
+    for i in 0..sma_data.len() {
+        line_data.push((data[i].0, sma_data[i] as f32));
+    }
+
+    chart
+        .draw_series(LineSeries::new(
+            line_data,
+            RGBColor(150, 50, 168).stroke_width(2),
+        ))
+        .unwrap()
+        .label("SMA 30")
+        .legend(|(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], &RGBColor(150, 50, 168)));
+
     chart
         .configure_series_labels()
         .position(SeriesLabelPosition::UpperMiddle)
